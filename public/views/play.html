@@ -1,0 +1,200 @@
+<style>
+    .fix-to-bottom {
+        position: fixed;
+        bottom: -38px;
+        width: 100%;
+    }
+
+    .active-user {
+        border: 2px solid #009688;
+        background-color: #009688;
+    }
+</style>
+<div class="container">
+    <div class="row">
+        <div class="container" style="padding-top: 12px;">
+            <div class="col s4">
+                <button onclick="showAll()" class="btn waves-effect waves-light"><i class="material-icons left">remove_red_eye</i>Show Score</button>
+            </div>
+            <div class="col s4">
+                <button onclick="clearAll()" class="btn waves-effect waves-light"><i class="material-icons left">clear_all</i>Clear Scores</button>
+            </div>
+            <div class="col s4">
+                <button data-target="cardsSettings" class="btn waves-effect waves-light modal-trigger tooltipped" data-position="bottom" data-tooltip="Change card values here"><i class="material-icons left">settings</i>Card Settings</button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s4">
+            <h4 class="header">Active Players</h4>
+            <ul class="collection" id="users">
+            </ul>
+        </div>
+        <div class="col s8">
+            <div class="card blue-grey darken-1 small">
+                <div class="card-content white-text">
+                    <span class="card-title view" id="storyIDView">FID-123</span>
+                    <input class="edit" style="display:none; color:white" type="text" id="storyID" />
+                    <div class="view" style="overflow-y:auto; height:200px">
+                        <span id="storyDescView" style="white-space: pre-wrap;">As a user, I want my planning poker game to look as cool as Fidelity Planning Poker!</span>
+                    </div>
+                    <!--loader for jira -->
+                    <div class="preloader-wrapper small active" style="display:none;" id="jiraLoading">
+                        <div class="spinner-layer spinner-green-only">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div>
+                            <div class="gap-patch">
+                                <div class="circle"></div>
+                            </div>
+                            <div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--loader for jira -->
+                    <textarea class="edit" rows="10" cols="30" id="storyDesc" style="display:none; width:100%; height:100%; color:white"></textarea>
+                </div>
+                <div class="card-action">
+                    <a class="view" href="javascript:edit()"> Edit</a>
+                    <a class="edit" style="display:none" href="javascript:done()"> Done</a>
+                    <a class="edit tooltipped" style="display:none" href="javascript:getStoryDescriptionFromJIRA()" data-position="bottom" data-tooltip="Provide a story ID and click me to get Story Description from JIRA">Get Description from JIRA</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row fix-to-bottom" id="cards">
+    </div>
+</div>
+<div id="cardsSettings" class="modal">
+    <div class="modal-content">
+        <h4>Cards Settings</h4>
+        <div id="card-values-input" class="chips"></div>
+    </div>
+    <div class="modal-footer">
+        <a href="javascript:saveCardValues()" class="modal-close waves-effect waves-green btn-flat">Save</a>
+        <a href="javascript:cancel()" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+    </div>
+</div>
+
+<script type="text/javascript">
+    init();
+    function init() {
+        //Initialize tooltips
+        $('.tooltipped').tooltip();
+        //init modal for materialize
+        $('.modal').modal({
+            onOpenStart: function () {
+                //Init card Settings page
+                cardSettingsInit(values);
+            }
+        });
+        //Join Session   
+        joinSession();
+    }
+    function cardSettingsInit(values) {
+        cardValues = [];
+        for (var count = 0; count < values.length; count++) {
+            cardValues.push({ tag: values[count] });
+        }
+        $('#card-values-input').chips({
+            data: cardValues,
+            placeholder: 'Enter story points.',
+            secondaryPlaceholder: '+Story Point',
+            limit: 8,
+            minLength: 1
+        });
+    }
+    function resetCards(values) {
+        $("#cards").html('');
+        formCards(values);
+    }
+    function saveCardValues() {
+        var instance = M.Chips.getInstance($('#card-values-input'));
+        console.log(instance.chipsData);
+        const chipData = instance.chipsData;
+        values = [];
+        if (chipData.length > 0) {
+            chipData.forEach((chip) => {
+                values.push(chip.tag);
+            });
+
+        }
+        resetCards(values);
+        socket.emit('change-card-values', values);
+    }
+    function cancel() {
+        console.log('cancel');
+    }
+    function getStoryDescriptionFromJIRA() {
+        const loginInfo = { 'username': userName, 'password': passWord };
+        $("#jiraLoading").show();
+        $("#storyDesc").hide();
+        $.post('/issue/description/' + $("#storyID").val(), loginInfo, function (response, data) {
+            $("#jiraLoading").hide();
+            $("#storyDesc").show();
+            if (response.statusCode == 200) {
+                $("#storyDesc").val(response.data);
+            }
+        });
+    }
+    function edit() {
+        $(".view").hide();
+        $(".edit").show(100);
+        $("#jiraLoading").hide();
+        $("#storyID").val($("#storyIDView").html());
+        $("#storyDesc").val($("#storyDescView").html());
+    }
+    function done() {
+        $("#storyIDView").html($("#storyID").val());
+        $("#storyDescView").html($("#storyDesc").val());
+        $(".edit").hide();
+        $(".view").show(100);
+        broadcastChangeStory();
+    }
+    function broadcastChangeStory() {
+        const data = { id: $("#storyID").val(), desc: $("#storyDesc").val() };
+        socket.emit('change-story', data);
+    }
+    function riseUp(self) {
+        console.log('in');
+        $(self).animate({ marginTop: "-30px" });
+    }
+    function resetCard(self) {
+        console.log('out');
+        $(self).stop();
+        $(self).css("marginTop", "0px");
+        $(self).css("bottom", "-38px");
+    }
+    function joinSession() {
+        console.log('roomname' + getSession());
+        console.log('userName' + userName);
+        console.log('fullName' + fullName);
+        var data = { sessionId: getSession(), userName: userName, fullName: fullName };
+        socket.emit('join-session', data);
+    }
+    function formCards(values) {
+        const cardHTML = `
+        <div class="col s1 score-cards" style="cursor: pointer;" onclick="play($$value)" onmouseleave="resetCard(this)" onmouseenter="riseUp(this)">
+            <div class="card-panel teal">
+                <span class="white-text center-align" style="font-size:2em">$$value</span>
+            </div>
+        </div>`;
+
+        values.forEach((value) => {
+            $("#cards").append(cardHTML.replace("$$value", value).replace("$$value", value));
+        })
+    }
+    function play(value) {
+        socket.emit('save-score-user', value);
+        $("#" + userName + "-score").html('<b>' + value + '</b>');
+        $("#" + userName + "-score").show();
+    }
+    function showAll() {
+        socket.emit('reveal-all');
+    }
+    function clearAll() {
+        socket.emit('reset-scores');
+    }
+
+</script>

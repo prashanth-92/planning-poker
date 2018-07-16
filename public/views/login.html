@@ -1,0 +1,72 @@
+<div id="user-details">
+    <div class="container" style="padding-top:40px;">
+        <div class="row">
+            <div class="col s3">
+            </div>
+            <form class="col s6 container">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">account_circle</i>
+                        <input id="username" type="text" class="validate">
+                        <label for="username">Username</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">vpn_key</i>
+                        <input id="password" type="password" class="validate">
+                        <label for="password">Password</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s6 center-align">
+                        <button onclick="login()" type="button" class="btn waves-effect waves-light"><i class="material-icons left">https</i>Login</button>
+                    </div>
+                    <div class="col s6 center-align">
+                        <button onclick="cancel()" type="button" class="btn waves-effect waves-light"><i class="material-icons left">clear</i>Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function login() {
+        $("#loading-bar").show();
+        userName = $('#username').val();
+        passWord = $('#password').val();
+        //Uncomment below and comment the post request method if you dont want login mechanism
+        /*fullName = userName;
+        handleSessions();
+        navigateTo('play/'+getSession());*/
+        const loginInfo = { 'username': userName, 'password': passWord };
+        $.post('login', loginInfo, function (response, status) {
+            $("#loading-bar").hide();
+            console.log(response);
+            if (response.statusCode == 200) {
+                const responseJSON = JSON.parse(response.data);
+                userName = responseJSON.name;
+                fullName = responseJSON.displayName;
+                console.log('userName' + userName);
+                console.log('fullName' + fullName);
+                handleSessions();
+                navigateTo('play/' + getSession());
+            }
+            else {
+                navigateTo('error');
+            }
+        });
+    }
+    function handleSessions() {
+        if (getSession() == "")
+            createSession();
+    }
+    function createSession() {
+        setSession(new Date().getMilliseconds());
+        socket.emit('create-session', getSession());
+    }
+    function cancel() {
+        navigateTo('home');
+    }
+
+</script>

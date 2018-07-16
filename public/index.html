@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Planning Poker</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <script type="text/javascript" src="/js/util-helper.js"></script>
+    <script type="text/javascript" src="/js/route-helper.js"></script>
+    <script type="text/javascript" src="/js/socket-helper.js"></script>
+    <script type="text/javascript" src="/js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+
+    <nav class="navbar-fixed">
+        <div class="nav-wrapper">
+            <div class="container">
+                <a href="/" class="brand-logo" style="font-size:1.5em"><i class="material-icons">style</i>Fidelity Planning Poker</a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a href="#about" class="modal-trigger">About <i class="material-icons left">info</i></a></li>
+                </ul>
+            </div>
+            <div class="progress" id="loading-bar" style="display:none;">
+                <div class="indeterminate"></div>
+            </div>
+        </div>
+    </nav>
+    <div id="placeholder">
+
+    </div>
+    <div id="about" class="modal" style="background:white">
+        <div class="modal-content">
+            <div class="container">
+                <div class="row">
+                    <h5 class="center-align">Developed and maintained by <br/><br/><b>Prashanth Ramakrishnan</b></h5>
+                </div>
+                <div class="row">
+                    <div class="col s6 center-align">
+                        <a href="sip:prashanth.ramakrishnan@gmail.com"><i class="material-icons" style="font-size:3rem">chat</i></a>
+                    </div>
+                    <div class="col s6 center-align">
+                        <a href="maito:prashanth.ramakrishnan@gmail.com"><i class="material-icons" style="font-size:3rem">email</i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="javascript:cancel()" class="modal-close waves-effect waves-green btn-flat">Close</a>
+        </div>
+    </div>
+
+</body>
+
+</html>
