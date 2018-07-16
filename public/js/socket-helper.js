@@ -60,6 +60,8 @@ socket.on('reveal-all', function (data) {
     });
 });
 socket.on('change-story', function (data) {
+    storyID = data.id;
+    storyDesc = data.desc;
     $("#storyIDView").html(data.id);
     $("#storyDescView").html(data.desc);
 });

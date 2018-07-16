@@ -11,6 +11,8 @@ const routes = [
     { path: '/', endPoint: '/home' }
 ];
 var values = [];
+var storyID = '';
+var storyDesc = '';
 $(function(){
     const path = window.location.pathname;
     init(path);

@@ -14,12 +14,16 @@ app.use(express.static('public'));
 app.post('/issue/description/:issueId', function (req, res) {
     const url = "http://" + getUserName(req) + ":" + getPassword(req) + "@<$jira-url$>/rest/api/2/issue/" + getIssueId(req);
     request({ url: url }, function (err, response, body) {
+    	var responseData = {};
+    	responseData.statusCode = response.statusCode;
         if(response.statusCode == 200){
-        const data = {statusCode: response.statusCode, data: JSON.parse(body).fields.description};
-        console.log(JSON.parse(body).fields.description);
+        	responseData.data =  JSON.parse(body).fields.description;
+        	console.log(JSON.parse(body).fields.description);
         }
-        const data = {statusCode: response.statusCode, data: ''};
-        res.send(data);
+        else{
+        	responseData.data = '';
+        }
+        res.send(responseData);
     });
 });
 app.post('/login', function (req, res) {
