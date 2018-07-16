@@ -1,7 +1,7 @@
 var socket = io.connect('http://localhost:8081');
 const userElement = `
 <li class="collection-item avatar">
-    <img class="circle responsive-img" id="$$userName-img" src="http://fcservices.fmr.com/fcservices-web/services/ww/photos/$$userName"></img>
+    <img class="circle responsive-img" id="$$userName-img" src="<image-src-url>"></img>
     <span class="title"><b>$$fullName</b></span>
     <p>$$userName</p>
     <i class="material-icons secondary-content done"  id="$$userName-done" style="display:none;">done</i>
@@ -20,7 +20,7 @@ socket.on('notify-users', function (data) {
             .replace("$$userName", data.userName)
             .replace("$$userName", data.userName)
             .replace("$$userName", data.userName)
-            .replace("$$userName", data.userName));
+            //.replace("$$userName", data.userName));
     $("#" + userName + "-img").addClass('active-user');
 });
 socket.on('session-users', function (data) {
@@ -34,7 +34,7 @@ socket.on('session-users', function (data) {
                 .replace("$$userName", item.userName)
                 .replace("$$userName", item.userName)
                 .replace("$$userName", item.userName)
-                .replace("$$userName", item.userName));
+               // .replace("$$userName", item.userName));
         });
     }
     $("#" + userName + "-img").addClass('active-user');
