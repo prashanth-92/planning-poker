@@ -36,9 +36,9 @@
         userName = $('#username').val();
         passWord = $('#password').val();
         //Uncomment below and comment the post request method if you dont want login mechanism
-        /*fullName = userName;
+        fullName = userName;
         handleSessions();
-        navigateTo('play/'+getSession());*/
+        navigateTo('play/'+getSession());
         const loginInfo = { 'username': userName, 'password': passWord };
         $.post('login', loginInfo, function (response, status) {
             $("#loading-bar").hide();

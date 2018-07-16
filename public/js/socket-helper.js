@@ -19,7 +19,7 @@ socket.on('notify-users', function (data) {
             .replace("$$userName", data.userName)
             .replace("$$userName", data.userName)
             .replace("$$userName", data.userName)
-            .replace("$$userName", data.userName)
+            .replace("$$userName", data.userName))
             //.replace("$$userName", data.userName));
     $("#" + userName + "-img").addClass('active-user');
 });
@@ -33,7 +33,7 @@ socket.on('session-users', function (data) {
                 .replace("$$userName", item.userName)
                 .replace("$$userName", item.userName)
                 .replace("$$userName", item.userName)
-                .replace("$$userName", item.userName)
+                .replace("$$userName", item.userName))
                // .replace("$$userName", item.userName));
         });
     }
