@@ -90,11 +90,13 @@ var sessions = {};
 server.listen(8081);
 io.sockets.on('connection', function (socket) {
     socket.on('create-session', function (sessionId) {
-        sessions[sessionId] = [1, 2, 3, 8, 15, 23];
+        sessions[sessionId] = {cardData : [1, 2, 3, 8, 15, 23], storyID: 'ABC-123', storyDesc: 'As a user, I want my planning poker game to look as cool as Planning Poker!'};
         console.log(sessions);
     });
     socket.on('change-story', function (data) {
-        io.sockets.in(socket.sessionId).emit('change-story', data);        
+        sessions[socket.sessionId].storyID = data.id;
+        sessions[socket.sessionId].storyDesc = data.desc;
+        io.sockets.in(socket.sessionId).emit('change-story', data);
     });
     socket.on('join-session', function (data) {
         console.log(data);
@@ -106,8 +108,11 @@ io.sockets.on('connection', function (socket) {
         io.sockets.in(socket.sessionId).emit('notify-users', data);
         //Send All users to newly added user
         socket.emit('session-users', users.filter((user) => user.sessionId == socket.sessionId));
-                
-        socket.emit('change-card-values', sessions[socket.sessionId]);
+
+        socket.emit('change-card-values', sessions[socket.sessionId].cardData);
+        const storyData = {id: sessions[socket.sessionId].storyID, desc: sessions[socket.sessionId].storyDesc};
+        socket.emit('change-story', storyData);
+        
     });
     socket.on('message', function (data) {
         io.sockets.in(socket.sessionId).emit('message', socket.userName, data);
@@ -131,14 +136,14 @@ io.sockets.on('connection', function (socket) {
         io.sockets.in(socket.sessionId).emit('reveal-all', users.filter((user) => user.sessionId == socket.sessionId));
     });
     socket.on('reset-scores', function () {
-        var filteredUsers = users.filter((user)=> user.sessionId == socket.sessionId);
-        filteredUsers.forEach((user)=>{
+        var filteredUsers = users.filter((user) => user.sessionId == socket.sessionId);
+        filteredUsers.forEach((user) => {
             user.score = 0;
         });
         io.sockets.in(socket.sessionId).emit('reset-scores', filteredUsers);
     });
     socket.on('change-card-values', function (data) {
-        sessions[socket.sessionId] = data;        
+        sessions[socket.sessionId].cardData = data;
         io.sockets.in(socket.sessionId).emit('change-card-values', data);
     });
     socket.on('disconnect', function () {
