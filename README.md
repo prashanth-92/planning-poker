@@ -14,6 +14,6 @@ To run the project, please do the following steps:
 # JIRA and Stash integration
 You can get Attlassian JIRA and stash integration to facilitate easy retrieval of story from JIRA. Stash can be integrated to ensure only valid users login to the application.
 Follow the below steps to do that:
-1. Under index.js, replace your company jira URL instead of <jira-url>. 
-2. Under index.js, replace your company stash URL instead of <stash-url>.
-3. Under public/js/socket-helper.js, replace <image-src-url> with your company's image url by provind the user id for individual users and also uncomment lines 23 and 37 for replacing the user id with the appropriate id.
+1. Under index.js, replace your company jira URL instead of <$jira-url$>. 
+2. Under index.js, replace your company stash URL instead of <$stash-url$>.
+3. Under public/js/socket-helper.js, replace <$image-src-url$> with your company's image url by provind the user id for individual users and also uncomment lines 23 and 37 for replacing the user id with the appropriate id.
