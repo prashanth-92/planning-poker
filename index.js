@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({
 app.use(express.static('public'));
 /*Data Endpoints Start*/
 app.post('/issue/description/:issueId', function (req, res) {
-    const url = "http://" + getUserName(req) + ":" + getPassword(req) + "@<jira-url>/rest/api/2/issue/" + getIssueId(req);
+    const url = "http://" + getUserName(req) + ":" + getPassword(req) + "@<$jira-url$>/rest/api/2/issue/" + getIssueId(req);
     request({ url: url }, function (err, response, body) {
         if(response.statusCode == 200){
         const data = {statusCode: response.statusCode, data: JSON.parse(body).fields.description};
@@ -23,7 +23,7 @@ app.post('/issue/description/:issueId', function (req, res) {
     });
 });
 app.post('/login', function (req, res) {
-    const url = "https://" + getUserName(req) + ":" + getPassword(req) + "@<stash-url>/rest/api/1.0/users/" + getUserName(req);
+    const url = "https://" + getUserName(req) + ":" + getPassword(req) + "@<$stash-url$>/rest/api/1.0/users/" + getUserName(req);
     request({ url: url }, function (err, response, body) {
         const data = {statusCode: response.statusCode, data: body};
         console.log(data);
