@@ -32,14 +32,14 @@
 </div>
 <script type="text/javascript">
     function login() {
-        $("#loading-bar").show();
+        //$("#loading-bar").show();
         userName = $('#username').val();
         passWord = $('#password').val();
         //Uncomment below and comment the post request method if you dont want login mechanism
-        /*fullName = userName;
+        fullName = userName;
         handleSessions();
-        navigateTo('play/'+getSession());*/
-        const loginInfo = { 'username': userName, 'password': passWord };
+        navigateTo('play/'+getSession());
+        /*const loginInfo = { 'username': userName, 'password': passWord };
         $.post('login', loginInfo, function (response, status) {
             $("#loading-bar").hide();
             console.log(response);
@@ -55,7 +55,7 @@
             else {
                 navigateTo('error');
             }
-        });
+        });*/
     }
     function handleSessions() {
         if (getSession() == "")
