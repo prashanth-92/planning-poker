@@ -1,6 +1,9 @@
 # Planning Poker
 Agile planning poker for story estimation. 
 
+# Quick glance
+Screenshots are available within the screenshots directory.
+
 # Getting started
 To run the project, please do the following steps:
 1. Clone the repository.
