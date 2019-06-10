@@ -3,6 +3,7 @@ Agile planning poker for story estimation.
 
 # Quick glance
 It is hosted in https://agile-sprint-planning-poker.herokuapp.com
+
 Screenshots are available within the screenshots directory.
 
 # Getting started
