@@ -10,7 +10,7 @@ To run the project, please do the following steps:
 2. Make sure you have node installed.
 3. Run `npm install`
 4. Run `node index.js`
-5. Open your browser and go to `http://localhost:8081`
+5. Open your browser and go to `http://localhost:5000`
 6. Do checkout the section for Atlassian JIRA and stash integration
 
 

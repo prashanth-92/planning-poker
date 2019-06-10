@@ -1,4 +1,5 @@
 const app = require('express')();
+const PORT = process.env.PORT || 5000
 const express = require('express');
 const bodyParser = require('body-parser')
 const server = require('http').Server(app);
@@ -87,7 +88,8 @@ var users = [];
 
 var sessions = {};
 
-server.listen(8081);
+server.listen(PORT, () => console.log(`Listening on ${ PORT }`))
+
 io.sockets.on('connection', function (socket) {
     socket.on('create-session', function (sessionId) {
         sessions[sessionId] = {cardData : [1, 2, 3, 8, 15, 23], storyID: 'ABC-123', storyDesc: 'As a user, I want my planning poker game to look as cool as Planning Poker!'};
