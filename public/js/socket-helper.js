@@ -1,4 +1,4 @@
-var socket = io.connect('http://localhost:8081');
+var socket = io.connect();
 const userElement = `
 <li class="collection-item avatar">
     <img class="circle responsive-img" id="$$userName-img" src="<$image-src-url$>"></img>

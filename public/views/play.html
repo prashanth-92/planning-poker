@@ -157,11 +157,9 @@
         socket.emit('change-story', data);
     }
     function riseUp(self) {
-        console.log('in');
         $(self).animate({ marginTop: "-30px" });
     }
     function resetCard(self) {
-        console.log('out');
         $(self).stop();
         $(self).css("marginTop", "0px");
         $(self).css("bottom", "-38px");
