@@ -1,7 +1,7 @@
 var socket = io.connect();
 const userElement = `
 <li class="collection-item avatar">
-    <img class="circle responsive-img" id="$$userName-img" src="<$image-src-url$>"></img>
+    <img class="circle responsive-img" id="$$userName-img" src="../assets/favicon.PNG"></img>
     <span class="title"><b>$$fullName</b></span>
     <p>$$userName</p>
     <i class="material-icons secondary-content done"  id="$$userName-done" style="display:none;">done</i>

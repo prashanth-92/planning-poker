@@ -19,4 +19,4 @@ You can get Attlassian JIRA and stash integration to facilitate easy retrieval o
 Follow the below steps to do that:
 1. Under `index.js`, replace your company jira URL instead of `<$jira-url$>`
 2. Under `index.js`, replace your company stash URL instead of `<$stash-url$>`
-3. Under `public/js/socket-helper.js`, replace `<$image-src-url$>` with your company's image url by provind the user id for individual users and also uncomment lines 23 and 37 for replacing the user id with the appropriate id.
+3. Under `public/js/socket-helper.js`, replace `img -> src` on line `4` with your company's image url by provind the user id for individual users and also uncomment lines 23 and 37 for replacing the user id with the appropriate id.
