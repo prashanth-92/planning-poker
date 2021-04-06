@@ -92,7 +92,7 @@ server.listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
 io.sockets.on('connection', function (socket) {
     socket.on('create-session', function (sessionId) {
-        sessions[sessionId] = {cardData : [1, 2, 3, 8, 15, 23], storyID: 'ABC-123', storyDesc: 'As a user, I want my planning poker game to look as cool as Planning Poker!'};
+        sessions[sessionId] = {cardData : [1, 2, 3, 5, 8, 13], storyID: 'ABC-123', storyDesc: 'As a user, I want my planning poker game to look as cool as Planning Poker!'};
         console.log(sessions);
     });
     socket.on('change-story', function (data) {
