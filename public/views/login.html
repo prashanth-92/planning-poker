@@ -11,16 +11,16 @@
                         <label for="username">Username</label>
                     </div>
                 </div>
-                <div class="row">
+                <!--div class="row">
                     <div class="input-field col s12">
                         <i class="material-icons prefix">vpn_key</i>
                         <input id="password" type="password" class="validate">
                         <label for="password">Password</label>
                     </div>
-                </div>
+                </div-->
                 <div class="row">
                     <div class="col s6 center-align">
-                        <button onclick="login()" type="button" class="btn waves-effect waves-light"><i class="material-icons left">https</i>Login</button>
+                        <button onclick="login()" type="button" class="btn waves-effect waves-light"><i class="material-icons left">https</i>Start</button>
                     </div>
                     <div class="col s6 center-align">
                         <button onclick="cancel()" type="button" class="btn waves-effect waves-light"><i class="material-icons left">clear</i>Cancel</button>
@@ -34,7 +34,7 @@
     function login() {
         //$("#loading-bar").show();
         userName = $('#username').val().replaceAll(".", "");
-        passWord = $('#password').val();
+        //passWord = $('#password').val();
         //Uncomment below and comment the post request method if you dont want login mechanism
         fullName = $('#username').val();
         handleSessions();
