@@ -3,7 +3,7 @@ const userElement = `
 <li class="collection-item avatar">
     <img class="circle responsive-img" id="$$userName-img" src="../assets/favicon.PNG"></img>
     <span class="title"><b>$$fullName</b></span>
-    <p>$$userName</p>
+    <!--p>$$fullName</p-->
     <i class="material-icons secondary-content done"  id="$$userName-done" style="display:none;">done</i>
     <span id="$$userName-score" class="badge collection-item secondary-content" style="display:none;"><b>$$score</b></span>
 </li>
@@ -16,6 +16,7 @@ socket.on('notify-users', function (data) {
     //Add newly joined user to user list
     if ($('#users li').length != 0)
         $("#users").append(userElement.replace("$$fullName", data.fullName)
+            .replace("$$fullName", data.fullName)
             .replace("$$userName", data.userName)
             .replace("$$userName", data.userName)
             .replace("$$userName", data.userName)

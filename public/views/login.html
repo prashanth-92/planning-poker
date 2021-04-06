@@ -33,10 +33,10 @@
 <script type="text/javascript">
     function login() {
         //$("#loading-bar").show();
-        userName = $('#username').val();
+        userName = $('#username').val().replaceAll(".", "");
         passWord = $('#password').val();
         //Uncomment below and comment the post request method if you dont want login mechanism
-        fullName = userName;
+        fullName = $('#username').val();
         handleSessions();
         navigateTo('play/'+getSession());
         /*const loginInfo = { 'username': userName, 'password': passWord };
