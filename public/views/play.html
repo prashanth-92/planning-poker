@@ -58,7 +58,7 @@
                 <div class="card-action">
                     <a class="view" href="javascript:edit()"> Edit</a>
                     <a class="edit" style="display:none" href="javascript:done()"> Done</a>
-                    <!--a class="edit tooltipped" style="display:none" href="javascript:getStoryDescriptionFromJIRA()" data-position="bottom" data-tooltip="Provide a story ID and click me to get Story Description from JIRA">Get Description from JIRA</a-->
+                    <a class="edit tooltipped" style="display:none" href="javascript:getStoryDescriptionFromJIRA()" data-position="bottom" data-tooltip="Provide a story ID and click me to get Story Description from JIRA">Get Description from JIRA</a>
                 </div>
             </div>
         </div>
@@ -127,7 +127,9 @@
         console.log('cancel');
     }
     function getStoryDescriptionFromJIRA() {
-        const loginInfo = { 'username': userName, 'password': passWord };
+        console.log("Currently disabled. See Readme for more details!");
+        alert("Currently disabled. See Readme for more details!");
+        /*const loginInfo = { 'username': userName, 'password': passWord };
         $("#jiraLoading").show();
         $("#storyDesc").hide();
         $.post('/issue/description/' + $("#storyID").val(), loginInfo, function (response, data) {
@@ -136,7 +138,7 @@
             if (response.statusCode == 200) {
                 $("#storyDesc").val(response.data);
             }
-        });
+        });*/
     }
     function edit() {
         $(".view").hide();

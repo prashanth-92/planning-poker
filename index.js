@@ -110,7 +110,6 @@ io.sockets.on('connection', function (socket) {
         io.sockets.in(socket.sessionId).emit('notify-users', data);
         //Send All users to newly added user
         socket.emit('session-users', users.filter((user) => user.sessionId == socket.sessionId));
-
         socket.emit('change-card-values', sessions[socket.sessionId].cardData);
         const storyData = {id: sessions[socket.sessionId].storyID, desc: sessions[socket.sessionId].storyDesc};
         socket.emit('change-story', storyData);
