@@ -11,6 +11,9 @@ app.use(bodyParser.urlencoded({
 //Allow use of static assets. 
 //Included below line to allow referring to relative path in index.html
 app.use(express.static('public'));
+app.get('/favicon', function (req, res) {
+    res.sendFile(__dirname + '/public/assets/favicon.png');
+});
 /*Data Endpoints Start*/
 app.post('/issue/description/:issueId', function (req, res) {
     const url = "http://" + getUserName(req) + ":" + getPassword(req) + "@<$jira-url$>/rest/api/2/issue/" + getIssueId(req);
