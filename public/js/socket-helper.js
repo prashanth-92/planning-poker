@@ -56,8 +56,10 @@ socket.on('reveal-all', function (data) {
     $(".done").hide();
     //Populate actual scores and show
     data.forEach((item) => {
-        $("#" + item.userName + "-score").html('<b>' + item.score + '</b>');
-        $("#" + item.userName + "-score").show();
+        if(item!=undefined && item.score!=undefined){
+            $("#" + item.userName + "-score").html('<b>' + item.score + '</b>');
+            $("#" + item.userName + "-score").show();
+        }
     });
 });
 socket.on('change-story', function (data) {
